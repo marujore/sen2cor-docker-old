@@ -8,8 +8,8 @@ Sentinel-2 Sen2cor (2.8.0) atmospheric correction.
 
 
 ## Sen2cor 2.8.0 Parameters
-Sen2cor parameters can be changed by modifing the 2.8.0/2.8/cfg/L2A_GIPP.xml file and mounting it.
-If you wish to use sen2cor default parameters, don't mount the parameters folder (-v /path/to/2.8/cfg:/root/sen2cor/2.8/cfg).
+Sen2cor parameters can be changed by modifing the 2.8.0/2.8/cfg/L2A_GIPP.xml file and mounting it (-v /path/to/2.8/cfg:/root/sen2cor/2.8/cfg).
+If you wish to use sen2cor default parameters, don't mount the parameters folder.
 
 More info regarding Sen2Cor can be found on its Configuration and User Manual (http://step.esa.int/thirdparties/sen2cor/2.8.0/docs/S2-PDGS-MPC-L2A-SRN-V2.8.pdf).
 
