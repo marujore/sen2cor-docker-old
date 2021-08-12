@@ -21,12 +21,12 @@ RUN apt-get update -y && \
 # Set the working directory to /app
 WORKDIR /app
 
-# Install Sen2cor Version 2.9.0
-RUN wget http://step.esa.int/thirdparties/sen2cor/2.9.0/Sen2Cor-02.09.00-Linux64.run
+# Install Sen2cor Version 2.5.5
+RUN wget http://step.esa.int/thirdparties/sen2cor/2.5.5/Sen2Cor-02.05.05-Linux64.run
 
-RUN chmod +x Sen2Cor-02.09.00-Linux64.run && \
-    bash /app/Sen2Cor-02.09.00-Linux64.run --target /home && \
-    rm /app/Sen2Cor-02.09.00-Linux64.run
+RUN chmod +x Sen2Cor-02.05.05-Linux64.run && \
+    bash /app/Sen2Cor-02.05.05-Linux64.run --target /home && \
+    rm /app/Sen2Cor-02.05.05-Linux64.run
 
 ENV PATH $PATH:/home/bin/
 
