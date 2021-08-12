@@ -33,7 +33,6 @@ ENV PATH $PATH:/home/bin/
 # Setting environment variables
 ENV PYTHONUNBUFFERED 1
 
-
 WORKDIR /work
 
 COPY run_sen2cor.sh /usr/local/bin/run_sen2cor.sh
