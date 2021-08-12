@@ -53,7 +53,7 @@ To process a Sentinel-2 scene, using Sen2cor default parameters, run:
     sen2cor:2.9.0 yourFile.SAFE
 ```
 
-To process a Sentinel-2 scene, changing Sen2cor parameters, e.g. disable terrain correction, configure the /2.9/L2A_GIPP.xml and run mounting it as:
+To process a Sentinel-2 scene, changing Sen2cor parameters, e.g. disable terrain correction, configure the /2.9/cfg/L2A_GIPP.xml and run mounting it as:
 
 ```bash
     $ docker run --rm \
