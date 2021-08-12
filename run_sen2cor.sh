@@ -7,8 +7,8 @@ if [ $1 == "--help" ]; then
     -v /path/to/input/:/mnt/input-dir \
     -v /path/to/output:/mnt/output-dir \
     -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
-    -v /path/to/sen2cor_2.9.0/2.9/cfg:/root/sen2cor/2.9/cfg \
-    -t sen2cor_2.9.0 <SENTINEL-2.SAFE>"
+    -v /path/to/sen2cor_2.8/cfg:/root/sen2cor/2.8/cfg \
+    -t sen2cor_2.8.0 <SENTINEL-2.SAFE>"
     exit 0
 fi
 
