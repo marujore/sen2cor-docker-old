@@ -22,13 +22,17 @@ if [ -z "${OUTDIR}" ]; then
     OUTDIR=/mnt/output-dir/
 fi
 
+if [ -z "${WORKDIR}" ]; then
+    WORKDIR=/mnt/work-dir/
+fi
+mkdir -p ${WORKDIR}
+
 ## SENTINEL-2
 SAFENAME_L1C=$1
 SAFENAME_L2A=${SAFENAME_L1C//L1C/L2A}
 SAFENAME_L2A=${SAFENAME_L2A::45}
 SAFEDIR_L1C=${INDIR}/${SAFENAME_L1C}
 
-WORKDIR=/work
 # Ensure that workdir/sceneid is clean
 if [ -d "${WORKDIR}/${SAFENAME_L1C}" ]; then
     rm -r ${WORKDIR}/${SAFENAME_L1C}
@@ -37,7 +41,7 @@ cp -r ${SAFEDIR_L1C} ${WORKDIR}
 
 # Process Sen2cor
 cd ${WORKDIR}
-/home/bin/L2A_Process ${SAFENAME_L1C}
+/home/bin/L2A_Process --resolution 10 ${SAFENAME_L1C}
 
 for entry in `ls ${WORKDIR}`; do
     if [[ $entry == "$SAFENAME_L2A"* ]]; then

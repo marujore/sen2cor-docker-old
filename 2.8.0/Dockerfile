@@ -33,7 +33,7 @@ ENV PATH $PATH:/home/bin/
 ENV PYTHONUNBUFFERED 1
 
 
-WORKDIR /work
+WORKDIR /work-dir
 
 COPY run_sen2cor.sh /usr/local/bin/run_sen2cor.sh
 RUN chmod +x /usr/local/bin/run_sen2cor.sh
