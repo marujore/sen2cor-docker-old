@@ -1,4 +1,6 @@
-FROM ubuntu@sha256:122f506735a26c0a1aff2363335412cfc4f84de38326356d31ee00c2cbe52171
+# ubuntu:18.04
+ARG BASE_IMAGE=ubuntu:ubuntu@sha256:122f506735a26c0a1aff2363335412cfc4f84de38326356d31ee00c2cbe52171
+FROM ${BASE_IMAGE}
 LABEL maintainer="Brazil Data Cube Team <brazildatacube@inpe.br>"
 
 USER root
@@ -21,7 +23,7 @@ RUN apt-get update -y && \
 WORKDIR /app
 
 # Install Sen2cor Version 2.8.0
-RUN wget http://step.esa.int/thirdparties/sen2cor/2.8.0/Sen2Cor-02.08.00-Linux64.run 
+RUN wget http://step.esa.int/thirdparties/sen2cor/2.8.0/Sen2Cor-02.08.00-Linux64.run
 
 RUN chmod +x Sen2Cor-02.08.00-Linux64.run && \
     bash /app/Sen2Cor-02.08.00-Linux64.run --target /home && \

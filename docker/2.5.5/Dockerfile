@@ -1,5 +1,6 @@
 # ubuntu:18.04
-FROM ubuntu@sha256:122f506735a26c0a1aff2363335412cfc4f84de38326356d31ee00c2cbe52171
+ARG BASE_IMAGE=ubuntu:ubuntu@sha256:122f506735a26c0a1aff2363335412cfc4f84de38326356d31ee00c2cbe52171
+FROM ${BASE_IMAGE}
 LABEL maintainer="Brazil Data Cube Team <brazildatacube@inpe.br>"
 
 USER root
