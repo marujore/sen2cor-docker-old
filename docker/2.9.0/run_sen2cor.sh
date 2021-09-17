@@ -27,12 +27,17 @@ if [ -z "${WORKDIR}" ]; then
 fi
 mkdir -p ${WORKDIR}
 
-## SENTINEL-2
-SAFENAME_L1C=$1
-SAFENAME_L2A=${SAFENAME_L1C//L1C/L2A}
-SAFENAME_L2A=${SAFENAME_L2A//_N*_R/_N9999_R}
-SAFENAME_L2A=${SAFENAME_L2A::45}
-SAFEDIR_L1C=${INDIR}/${SAFENAME_L1C}
+INPUT_PRODUCT=$1
+if [[ $INPUT_PRODUCT == *.SAFE ]]; then
+    SAFENAME_L1C=$INPUT_PRODUCT
+    SAFEDIR_L1C=${INDIR}/${SAFENAME_L1C}
+elif [[ $INPUT_PRODUCT == *.zip ]]; then
+    SAFENAME_L1C_="$(unzip -qql ${INDIR}/$INPUT_PRODUCT | head -n1 | tr -s ' ' | cut -d' ' -f5-)"
+    SAFENAME_L1C="${SAFENAME_L1C_::-1}"
+else
+    echo "ERROR: Not valid Sentinel-2 L1C"
+    exit 1
+fi
 
 # Ensure that workdir/sceneid is clean
 if [ -d "${WORKDIR}/${SAFENAME_L1C}" ]; then
@@ -40,13 +45,16 @@ if [ -d "${WORKDIR}/${SAFENAME_L1C}" ]; then
 fi
 
 #check if dir or .zip
-if [ -d "${SAFEDIR_L1C}" ]; then
+if [[ $INPUT_PRODUCT == *.SAFE ]]; then
     cp -r ${SAFEDIR_L1C} ${WORKDIR}
-elif [ -f "${SAFEDIR_L1C}" ]; then
-    unzip ${SAFEDIR_L1C} -d ${WORKDIR}
-else
-    echo "ERROR: Sentinel-2 L1C file not found"
+elif [[ $INPUT_PRODUCT == *.zip ]]; then
+    unzip ${INDIR}/$INPUT_PRODUCT -d ${WORKDIR}
 fi
+
+## SENTINEL-2
+SAFENAME_L2A=${SAFENAME_L1C//L1C/L2A}
+SAFENAME_L2A=${SAFENAME_L2A//_N*_R/_N9999_R}
+SAFENAME_L2A=${SAFENAME_L2A::45}
 
 # Process Sen2cor
 cd ${WORKDIR}
