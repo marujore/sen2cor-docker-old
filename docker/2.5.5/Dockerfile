@@ -34,10 +34,12 @@ ENV PATH $PATH:/home/bin/
 # Setting environment variables
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /work-dir
-
-COPY run_sen2cor.sh /usr/local/bin/run_sen2cor.sh
+COPY 2.5.5/run_sen2cor.sh /usr/local/bin/run_sen2cor.sh
 RUN chmod +x /usr/local/bin/run_sen2cor.sh
+
+COPY change-sen2cor-meta.py /usr/local/bin/change-sen2cor-meta.py
+
+WORKDIR /mnt/work-dir
 
 ENTRYPOINT ["/usr/local/bin/run_sen2cor.sh"]
 CMD ["--help"]

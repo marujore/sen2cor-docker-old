@@ -28,6 +28,7 @@ fi
 mkdir -p ${WORKDIR}
 
 INPUT_PRODUCT=$1
+shift
 if [[ $INPUT_PRODUCT == *.SAFE ]]; then
     SAFENAME_L1C=$INPUT_PRODUCT
     SAFEDIR_L1C=${INDIR}/${SAFENAME_L1C}
@@ -55,6 +56,12 @@ fi
 SAFENAME_L2A=${SAFENAME_L1C//L1C/L2A}
 SAFENAME_L2A=${SAFENAME_L2A//_N*_R/_N9999_R}
 SAFENAME_L2A=${SAFENAME_L2A::45}
+
+# Prepare Sen2cor parameters
+if [ $# -ne 0 ]
+  then
+    python3 /usr/local/bin/change-sen2cor-meta.py /root/sen2cor/2.9/cfg/L2A_GIPP.xml $@
+fi
 
 # Process Sen2cor
 cd ${WORKDIR}
