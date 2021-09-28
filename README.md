@@ -1,10 +1,7 @@
 # Docker support for Sen2Cor
 
+Sen2Cor is a processor for Sentinel-2 Level 2A product generation and formatting. The detailed information about this software can be found on [Configuration and User Manual](http://step.esa.int/thirdparties/sen2cor/2.9.0/docs/S2-PDGS-MPC-L2A-SRN-V2.9.0.pdf).
 
-Sen2Cor is a processor for Sentinel-2 Level 2A product generation and formatting
-
-
-Detailed information regarding Sen2Cor can be found on its Configuration and User Manual (http://step.esa.int/thirdparties/sen2cor/2.9.0/docs/S2-PDGS-MPC-L2A-SRN-V2.9.0.pdf).
 
 ## Dependencies
 
