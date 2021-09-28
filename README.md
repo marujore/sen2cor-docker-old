@@ -1,6 +1,8 @@
-# Sen2cor-Docker
+# Docker support for Sen2Cor
 
-Sentinel-2 Sen2cor atmospheric correction processor Dockers.
+
+Sen2Cor is a processor for Sentinel-2 Level 2A product generation and formatting
+
 
 ## Dependencies
 
