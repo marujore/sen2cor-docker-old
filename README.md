@@ -4,17 +4,11 @@
 Sen2Cor is a processor for Sentinel-2 Level 2A product generation and formatting
 
 
+Detailed information regarding Sen2Cor can be found on its Configuration and User Manual (http://step.esa.int/thirdparties/sen2cor/2.9.0/docs/S2-PDGS-MPC-L2A-SRN-V2.9.0.pdf).
+
 ## Dependencies
 
 - Docker
-
-
-## Sen2cor Parameters
-Sen2cor parameters can be changed by modifing the 2.9.0/2.9/cfg/L2A_GIPP.xml file (for version 2.9.9) and mounting it while running the docker (-v /path/to/sen2cor/2.9/cfg:/root/sen2cor/2.9/cfg).
-If you wish to use sen2cor default parameters, don't mount the parameters folder.
-
-More info regarding Sen2Cor can be found on its Configuration and User Manual (http://step.esa.int/thirdparties/sen2cor/2.9.0/docs/S2-PDGS-MPC-L2A-SRN-V2.9.0.pdf).
-
 
 ## Downloading Sen2cor auxiliarie files:
   Download from http://maps.elie.ucl.ac.be/CCI/viewer/download.php (fill info on the right and download "ESACCI-LC for Sen2Cor data package")
@@ -33,13 +27,17 @@ More info regarding Sen2Cor can be found on its Configuration and User Manual (h
 
 ## Installation
 
-To build sen2cor version 2.9.0 (you can change to the other versions in this repository) run:
+To build sen2cor version 2.9.0 (you can change to the other versions in this repository) run from the root of this repository:
 
    ```bash
-   $ docker build -t sen2cor:2.9.0 ./2.9.0
+   $ ./build.sh
    ```
 
-   from the root of this repository to install version 2.9.0.
+A specific version can be build by providing `-v <version>`; --no-cache option can be activated by providing `-n` flag; docker base image can be change by providing `-b <baseimage>`. For instance, to build a Sen2cor 2.5.5 image one can run from the root of this repository:
+
+   ```bash
+   $ ./build.sh -n -v 2.5.5
+   ```
 
 ## Usage
 
@@ -50,18 +48,19 @@ To process a Sentinel-2 scene, using Sen2cor default parameters, run:
     -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
     -v /path/to/folder/containing/.SAFEfile:/mnt/input-dir \
     -v /path/to/output:/mnt/output-dir:rw \
-    sen2cor:2.9.0 yourFile.SAFE
+    sen2cor:2.9.0 <yourFile.SAFE>
 ```
 
-To process a Sentinel-2 scene, changing Sen2cor parameters, e.g. disable terrain correction, configure the 2.9.0/2.9/cfg/L2A_GIPP.xml and run mounting it as:
+To process a Sentinel-2 scene, changing Sen2cor parameters, e.g. define the number of threads, run as:
 
 ```bash
     $ docker run --rm \
     -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
-    -v /path/to/sen2cor/2.9/cfg:/root/sen2cor/2.9/cfg \
     -v /path/to/folder/containing/.SAFEfile:/mnt/input-dir \
     -v /path/to/output:/mnt/output-dir:rw \
-    sen2cor:2.9.0 yourFile.SAFE
+    sen2cor:2.9.0 <yourFile.SAFE> Nr_Threads=2
 ```
+
+The sen2cor parameters that can be changed can be seen at L2A_GIPP.xml file.
 
 Results are written on mounted `/mnt/output-dir/`.

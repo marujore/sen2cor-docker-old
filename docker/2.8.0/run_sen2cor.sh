@@ -22,19 +22,46 @@ if [ -z "${OUTDIR}" ]; then
     OUTDIR=/mnt/output-dir/
 fi
 
-## SENTINEL-2
-SAFENAME_L1C=$1
-SAFENAME_L2A=${SAFENAME_L1C//L1C/L2A}
-SAFENAME_L2A=${SAFENAME_L2A//_N*_R/_N9999_R}
-SAFENAME_L2A=${SAFENAME_L2A::45}
-SAFEDIR_L1C=${INDIR}/${SAFENAME_L1C}
+if [ -z "${WORKDIR}" ]; then
+    WORKDIR=/mnt/work-dir/
+fi
+mkdir -p ${WORKDIR}
 
-WORKDIR=/work
+INPUT_PRODUCT=$1
+shift
+if [[ $INPUT_PRODUCT == *.SAFE ]]; then
+    SAFENAME_L1C=$INPUT_PRODUCT
+    SAFEDIR_L1C=${INDIR}/${SAFENAME_L1C}
+elif [[ $INPUT_PRODUCT == *.zip ]]; then
+    SAFENAME_L1C_="$(unzip -qql ${INDIR}/$INPUT_PRODUCT | head -n1 | tr -s ' ' | cut -d' ' -f5-)"
+    SAFENAME_L1C="${SAFENAME_L1C_::-1}"
+else
+    echo "ERROR: Not valid Sentinel-2 L1C"
+    exit 1
+fi
+
 # Ensure that workdir/sceneid is clean
 if [ -d "${WORKDIR}/${SAFENAME_L1C}" ]; then
     rm -r ${WORKDIR}/${SAFENAME_L1C}
 fi
-cp -r ${SAFEDIR_L1C} ${WORKDIR}
+
+#check if dir or .zip
+if [[ $INPUT_PRODUCT == *.SAFE ]]; then
+    cp -r ${SAFEDIR_L1C} ${WORKDIR}
+elif [[ $INPUT_PRODUCT == *.zip ]]; then
+    unzip ${INDIR}/$INPUT_PRODUCT -d ${WORKDIR}
+fi
+
+## SENTINEL-2
+SAFENAME_L2A=${SAFENAME_L1C//L1C/L2A}
+SAFENAME_L2A=${SAFENAME_L2A//_N*_R/_N9999_R}
+SAFENAME_L2A=${SAFENAME_L2A::45}
+
+# Prepare Sen2cor parameters
+if [ $# -ne 0 ]
+  then
+    python3 /usr/local/bin/change-sen2cor-meta.py /root/sen2cor/2.8/cfg/L2A_GIPP.xml $@
+fi
 
 # Process Sen2cor
 cd ${WORKDIR}
