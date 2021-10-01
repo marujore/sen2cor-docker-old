@@ -12,7 +12,7 @@ if [ $1 == "--help" ]; then
     exit 0
 fi
 
-# Set default directories to the INDIR and OUTDIR
+# Set default directories to the INDIR and OUTDIR and WORKDIR
 # You can customize it using INDIR=/my/custom OUTDIR=/my/out run_sen2cor_fmask.sh
 if [ -z "${INDIR}" ]; then
     INDIR=/mnt/input-dir

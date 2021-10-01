@@ -62,6 +62,6 @@ else
 fi
 
 docker build ${BUILD_MODE} \
-       --build-arg ${BASE_IMAGE} \
+       --build-arg BASE_IMAGE=${BASE_IMAGE} \
        -t "sen2cor:"${SEN2COR_VERSION} \
        --file ${SEN2COR_VERSION}/Dockerfile .
