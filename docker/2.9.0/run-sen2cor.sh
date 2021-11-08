@@ -1,12 +1,15 @@
 #!/bin/bash
+
 set -e
 shopt -s nullglob
+
 if [ $1 == "--help" ]; then
     echo "Usage: \
     docker run --rm \
-    -v /path/to/input/:/mnt/input-dir \
-    -v /path/to/output:/mnt/output-dir \
-    -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
+    -v /path/to/input_dir/:/mnt/input_dir \
+    -v /path/to/output_dir:/mnt/output_dir \
+    -v /path/to/work_dir:/mnt/work_dir \
+    -v /path/to/CCI4SEN2COR:${SEN2COR_INSTALL_PATH}/lib/python2.7/site-packages/sen2cor/aux_data \
     -v /path/to/sen2cor_2.9.0/2.9/cfg:/root/sen2cor/2.9/cfg \
     -t sen2cor_2.9.0 <SENTINEL-2.SAFE>"
     exit 0
