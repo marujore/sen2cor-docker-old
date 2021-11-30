@@ -24,7 +24,9 @@ if [ "${SAFENAME_L1C}" != "*.SAFE" ] && [ ${SAFENAME_L1C:4:6} != 'MSIL1C' ]; the
     exit 1
 fi
 
+# load Sen2Cor environment variables
 source ${SEN2COR_INSTALL_PATH}/L2A_Bashrc
+
 L2A_Process --resolution 10 \
             --output_dir ${SEN2COR_OUTPUT_DIR} \
             --GIP_L2A ${SEN2COR_GIP_L2A} \

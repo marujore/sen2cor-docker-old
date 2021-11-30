@@ -68,22 +68,13 @@ WORKDIR ${SEN2COR_INSTALL_PATH}
 #
 # Environment Variables
 #
-
-# Mandatorio
 ENV SEN2COR_INPUT_DIR /mnt/input_dir
 ENV SEN2COR_OUTPUT_DIR /mnt/output_dir
 ENV SEN2COR_WORK_DIR /mnt/work_dir
 ENV SEN2COR_INSTALL_PATH ${SEN2COR_INSTALL_PATH}
-
-# opcional
 ENV SEN2COR_CCI4SEN2COR ${SEN2COR_INSTALL_PATH}/lib/python2.7/site-packages/sen2cor/aux_data
-
-# Opcional
 ENV SEN2COR_GIP_L2A ${SEN2COR_INSTALL_PATH}/cfg/L2A_GIPP.xml
-
-# opcional
 ENV SEN2COR_SRTM /root/sen2cor/2.9/dem/srtm
-
 
 
 #
@@ -94,4 +85,3 @@ ADD run-sen2cor.sh ${SEN2COR_INSTALL_PATH}/bin/run-sen2cor.sh
 ENTRYPOINT ["./bin/run-sen2cor.sh"]
 
 CMD ["--help"]
-# CMD ["${SEN2COR_INSTALL_PATH}/bin/run-sen2cor.sh"]
