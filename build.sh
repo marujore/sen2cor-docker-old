@@ -54,8 +54,8 @@ done
 echo "Building Sen2cor Image"
 
 # Ensure that directory exists
-if [ -d "docker/${SEN2COR_VERSION}" ]; then
-    cd docker
+if [ -d "${SEN2COR_VERSION}" ]; then
+    cd ${SEN2COR_VERSION}
 else
     echo "Error: Sen2cor version ${SEN2COR_VERSION} directory not found"
     exit 1
@@ -63,5 +63,4 @@ fi
 
 docker build ${BUILD_MODE} \
        --build-arg ${BASE_IMAGE} \
-       -t "sen2cor:"${SEN2COR_VERSION} \
-       --file ${SEN2COR_VERSION}/Dockerfile .
+       -t "sen2cor:"${SEN2COR_VERSION} .
