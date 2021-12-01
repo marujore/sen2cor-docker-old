@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+# This file is part of Sen2Cor Docker.
+# Copyright (C) 2021 INPE.
+#
+# Sen2cor Docker is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+#
 
 set -e
 shopt -s nullglob

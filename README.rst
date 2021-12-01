@@ -1,63 +1,86 @@
-# Docker support for Sen2Cor
+..
+    This file is part of Sen2Cor Docker.
+    Copyright (C) 2021 INPE.
 
-Sen2Cor is a processor for Sentinel-2 Level 2A product generation and formatting. The detailed information about this software can be found in [Configuration and User Manual](http://step.esa.int/thirdparties/sen2cor/2.9.0/docs/S2-PDGS-MPC-L2A-SRN-V2.9.0.pdf).
-
-
-## Dependencies
-
-- Docker
-
-## Downloading Sen2cor auxiliarie files:
-  Download from http://maps.elie.ucl.ac.be/CCI/viewer/download.php (fill info on the right and download "ESACCI-LC for Sen2Cor data package")
-  extract the downloaded file and the files within. It will contain two files and one directory:
-
-  Example on Ubuntu (Linux) installation:
-
-    $ ls home/user/sen2cor/CCI4SEN2COR
-
-  ESACCI-LC-L4-LCCS-Map-300m-P1Y-2015-v2.0.7.tif
-
-  ESACCI-LC-L4-Snow-Cond-500m-P13Y7D-2000-2012-v2.0
-
-  ESACCI-LC-L4-WB-Map-150m-P13Y-2000-v4.0.tif
+    Sen2cor Docker is free software; you can redistribute it and/or modify it
+    under the terms of the MIT License; see LICENSE file for more details.
 
 
-## Installation
+Docker Support for Sen2Cor
+==========================
 
-To build sen2cor version 2.9.0 (you can change to the other versions in this repository) run from the root of this repository:
 
-   ```bash
-   $ ./build.sh
-   ```
+.. image:: https://img.shields.io/badge/license-MIT-green
+        :target: https://github.com/brazil-data-cube/sen2cor-docker/blob/master/LICENSE
+        :alt: Software License
 
-A specific version can be build by providing `-v <version>`; --no-cache option can be activated by providing `-n` flag; docker base image can be change by providing `-b <baseimage>`. For instance, to build a Sen2cor 2.5.5 image one can run from the root of this repository:
 
-   ```bash
-   $ ./build.sh -n -v 2.5.5
-   ```
+.. image:: https://img.shields.io/badge/lifecycle-experimental-orange.svg
+        :target: https://www.tidyverse.org/lifecycle/#experimental
+        :alt: Software Life Cycle
 
-## Usage
 
-To process a Sentinel-2 scene, using Sen2cor default parameters, run:
+About
+-----
 
-```bash
-    $ docker run --rm \
-    -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
-    -v /path/to/folder/containing/.SAFEfile:/mnt/input-dir \
-    -v /path/to/output:/mnt/output-dir:rw \
-    sen2cor:2.9.0 <yourFile.SAFE>
-```
 
-To process a Sentinel-2 scene, changing Sen2cor parameters, e.g. define the number of threads, run as:
+Sen2Cor is a processor for Sentinel-2 Level 2A product generation and formatting. The detailed information about this software can be found in `Configuration and User Manual <http://step.esa.int/thirdparties/sen2cor/2.9.0/docs/S2-PDGS-MPC-L2A-SUM-V2.9.0.pdf>`_.
 
-```bash
-    $ docker run --rm \
-    -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
-    -v /path/to/folder/containing/.SAFEfile:/mnt/input-dir \
-    -v /path/to/output:/mnt/output-dir:rw \
-    sen2cor:2.9.0 <yourFile.SAFE> Nr_Threads=2
-```
 
-The sen2cor parameters that can be changed can be seen at L2A_GIPP.xml file.
+Image Build Dependencies
+------------------------
 
-Results are written on mounted `/mnt/output-dir/`.
+
+In order to build the Docker image you should have `Docker <https://docs.docker.com/>`_ installed. Please, refer to the official documentation section `Install Docker Engine <https://docs.docker.com/engine/install/>`_ if you do not have it installed.
+
+
+Image Build
+-----------
+
+
+You can create docker images for Sen2Cor version 2.5.5, 2.8.0, or 2.9.0. If you intend to build the 2.9.0 version, go to the folder named 2.9.0 and build the image with the following command::
+
+    cd 2.9.0
+
+    docker build  --no-cache --tag brazildatacube/sen2cor:2.9.0 .
+
+
+.. note::
+
+    If you have the file ``Sen2Cor-02.09.00-Linux64.run`` in the ``2.9.0`` folder, you can add the following option to the build args::
+
+        --build-arg SEN2COR_INSTALLER_URL=Sen2Cor-02.09.00-Linux64.run
+
+
+
+Auxiliary Files for Running Sen2Cor
+-----------------------------------
+
+
+Sen2Cor cloud screening and classification modules depend on `ESACCI-LC for Sen2Cor data package <http://maps.elie.ucl.ac.be/CCI/viewer/download.php>`_. Please, download the package named ``ESACCI-LC-L4-ALL-FOR-SEN2COR.zip``. After downloading and extracting the package, you should have a folder named CCI4SEn2COR with the following content:
+
+- ``ESACCI-LC-L4-Snow-Cond-500m-P13Y7D-2000-2012-v2.0`` (directory).
+
+- ``ESACCI-LC-L4-LCCS-Map-300m-P1Y-2015-v2.0.7.tif`` (GeoTIFF file).
+
+- ``ESACCI-LC-L4-WB-Map-150m-P13Y-2000-v4.0.tif`` (GeoTIFF file).
+
+
+Running
+-------
+
+
+You can create a temporary container that runs Sen2Cor with the following command::
+
+    docker run --rm \
+               --volume /path/to/input_dir:/mnt/input_dir:ro \
+               --volume /path/to/output_dir:/mnt/output_dir:rw \
+               --volume /path/to/CCI4SEN2COR:/opt/sen2cor/2.9.0/lib/python2.7/site-packages/sen2cor/aux_data \
+               --volume /path/to/L2A_GIPP.xml:/opt/sen2cor/2.9.0/cfg/L2A_GIPP.xml \
+               --volume /path/to/srtm:/root/sen2cor/2.9/dem/srtm \
+               brazildatacube/sen2cor:2.9.0 S2A_MSIL1C_20210903T140021_N0301_R067_T21KVR_20210903T172609.SAFE
+
+
+.. note::
+
+    The lines binding the ``SRTM`` images directory and the ``L2A_GIPP.xml`` file are not mandatory.
