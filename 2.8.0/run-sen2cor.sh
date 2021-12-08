@@ -15,7 +15,7 @@ if [ ${1} == "--help" ]; then
     docker run --rm \
     -v /path/to/input_dir/:/mnt/input_dir \
     -v /path/to/output_dir:/mnt/output_dir \
-    -v /path/to/CCI4SEN2COR:${SEN2COR_INSTALL_PATH}/lib/python2.7/site-packages/sen2cor/aux_data \
+    -v /path/to/CCI4SEN2COR:/mnt/aux_data \
     -v /path/to/L2A_GIPP.xml:${SEN2COR_INSTALL_PATH}/cfg/L2A_GIPP.xml \
     -v /path/to/srtm:/root/sen2cor/2.9/dem/srtm \
     brazildatacube/sen2cor:2.8.0 <SENTINEL-2_L1C.SAFE>"
