@@ -18,7 +18,7 @@ if [ ${1} == "--help" ]; then
     -v /path/to/CCI4SEN2COR:/mnt/aux_data \
     -v /path/to/L2A_GIPP.xml:${SEN2COR_INSTALL_PATH}/cfg/L2A_GIPP.xml \
     -v /path/to/srtm:/root/sen2cor/2.9/dem/srtm \
-    brazildatacube/sen2cor:2.9.0 <SENTINEL-2_L1C.SAFE>"
+    brazildatacube/sen2cor:2.8.0 <SENTINEL-2_L1C.SAFE>"
     exit 0
 fi
 
