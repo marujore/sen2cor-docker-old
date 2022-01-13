@@ -69,9 +69,9 @@ ENV SEN2COR_SRTM /root/sen2cor/2.9/dem/srtm
 ADD run-sen2cor.sh ${SEN2COR_INSTALL_PATH}/bin/run-sen2cor.sh
 
 # Create Symbolic links to Sen2cor auxiliary files
-RUN ln -s /mnt/aux_data/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2015-v2.0.7.tif /opt/sen2cor/2.9.0/lib/python2.7/site-packages/sen2cor/aux_data/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2015-v2.0.7.tif && \
-    ln -s /mnt/aux_data/ESACCI-LC-L4-WB-Map-150m-P13Y-2000-v4.0.tif /opt/sen2cor/2.9.0/lib/python2.7/site-packages/sen2cor/aux_data/ESACCI-LC-L4-WB-Map-150m-P13Y-2000-v4.0.tif && \
-    ln -s /mnt/aux_data/ESACCI-LC-L4-Snow-Cond-500m-P13Y7D-2000-2012-v2.0 /opt/sen2cor/2.9.0/lib/python2.7/site-packages/sen2cor/aux_data/ESACCI-LC-L4-Snow-Cond-500m-P13Y7D-2000-2012-v2.0
+RUN ln -s /mnt/aux_data/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2015-v2.0.7.tif /opt/sen2cor/${SEN2COR_VERSION}/lib/python2.7/site-packages/sen2cor/aux_data/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2015-v2.0.7.tif && \
+    ln -s /mnt/aux_data/ESACCI-LC-L4-WB-Map-150m-P13Y-2000-v4.0.tif /opt/sen2cor/${SEN2COR_VERSION}/lib/python2.7/site-packages/sen2cor/aux_data/ESACCI-LC-L4-WB-Map-150m-P13Y-2000-v4.0.tif && \
+    ln -s /mnt/aux_data/ESACCI-LC-L4-Snow-Cond-500m-P13Y7D-2000-2012-v2.0 /opt/sen2cor/${SEN2COR_VERSION}/lib/python2.7/site-packages/sen2cor/aux_data/ESACCI-LC-L4-Snow-Cond-500m-P13Y7D-2000-2012-v2.0
 
 ENTRYPOINT ["./bin/run-sen2cor.sh"]
 
