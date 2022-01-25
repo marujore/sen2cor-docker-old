@@ -10,13 +10,11 @@
 ARG BASE_IMAGE=ubuntu:20.04
 FROM ${BASE_IMAGE}
 
-
 # Image metadata
 LABEL "org.brazildatacube.maintainer"="Brazil Data Cube <brazildatacube@inpe.br>"
 LABEL "org.brazildatacube.title"="Docker image for Sen2Cor"
 LABEL "org.brazildatacube.description"="Software environment \
 for Sentinel-2 Level 2A product generation and formatting."
-
 
 # Build arguments
 ARG SEN2COR_VERSION="2.9.0"
