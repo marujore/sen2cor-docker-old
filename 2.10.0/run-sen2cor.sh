@@ -13,8 +13,8 @@ shopt -s nullglob
 if [ ${1} == "--help" ]; then
     echo "Usage: \
     docker run --rm \
-    -v /path/to/input_dir/:/mnt/input_dir \
-    -v /path/to/output_dir:/mnt/output_dir \
+    -v /path/to/input-dir/:/mnt/input-dir \
+    -v /path/to/output-dir:/mnt/output-dir \
     -v /path/to/CCI4SEN2COR:/mnt/sen2cor-aux/CCI4SEN2COR \
     -v /path/to/L2A_GIPP.xml:${SEN2COR_INSTALL_PATH}/cfg/L2A_GIPP.xml \
     -v /path/to/srtm:/mnt/sen2cor-aux/srtm \
