@@ -73,8 +73,8 @@ Running
 You can create a temporary container that runs Sen2Cor with the following command::
 
     docker run --rm \
-               --volume /path/to/input_dir:/mnt/input_dir:ro \
-               --volume /path/to/output_dir:/mnt/output_dir:rw \
+               --volume /path/to/input_dir:/mnt/input-dir:ro \
+               --volume /path/to/output_dir:/mnt/output-dir:rw \
                --volume /path/to/CCI4SEN2COR:/mnt/sen2cor-aux/CCI4SEN2COR \
                --volume /path/to/L2A_GIPP.xml:/opt/sen2cor/2.9.0/cfg/L2A_GIPP.xml \
                --volume /path/to/srtm:/mnt/sen2cor-aux/srtm:rw \
